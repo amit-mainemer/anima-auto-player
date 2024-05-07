@@ -1,26 +1,21 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 import sys
 import time
+import os
+from pprint import pprint 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.utils import get_last_episode, write_last_episode, open_browser, get_driver
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
-driver = webdriver.Chrome(options=chrome_options)
+
+driver = get_driver()
 
 video_start_time = 60 * 4
 video_time_from_end = 40  # in seconds
 
 
 def get_one_piece_url(episode_number):
-    return f'https://animeisrael.website/watch/fulllink/op/fulllinkop-{episode_number}.php'
-
-
-def open_browser(url):
-    driver.get(url)
-    time.sleep(1)
-    driver.maximize_window()
-    time.sleep(2)
+    return f'https://animeisrael.website/watch/fulllink/op/fulllinkop-{str(episode_number)}.php'
 
 
 control_video_script = f"""
@@ -75,17 +70,25 @@ def start_video_interval():
 
 
 def go_to_next_episode(episode_number):
-    init(str(int(episode_number) + 1))
+    play(int(episode_number) + 1)
 
 
-def init(episode_number):
-    print('Start episode ' + episode_number)
+def play(episode_number):
+    print('Start episode ' + str(episode_number))
+    write_last_episode(episode_number)
     url = get_one_piece_url(episode_number)
-    open_browser(url)
+    open_browser(driver,url)
     start_player()
     start_video_interval()
     time.sleep(4)
     go_to_next_episode(episode_number)
 
+def init(param):
+    if param == "last":
+        print(get_last_episode())
+    if param == "play":
+        play(int(get_last_episode()) + 1)
+    else:
+        play(param)
 
 init(sys.argv[1])
