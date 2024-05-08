@@ -40,14 +40,15 @@ def init(params):
         if(len(params) < 3): 
             print("Please write a command or episode number. (you can view [anima help])")
             return
-        
         if(params[2] == "last"):
             print(last_episode)
             return
         if(params[2] == "play"):
-            animaPlayer.play(last_episode + 1)
+            animaPlayer.play(int(last_episode) + 1)
         if(params[2] == "again"):
             animaPlayer.play(last_episode)
+        else:
+            animaPlayer.play(params[2])
     else:
         print("Invalid argument. you can type [anima help] to view all possible options")
             

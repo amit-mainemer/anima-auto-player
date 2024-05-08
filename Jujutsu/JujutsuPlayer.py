@@ -26,7 +26,7 @@ class JujutsuPlayer(AnimaPlayer):
     def start(self):
         playBtn = self.driver.find_element(By.XPATH, '//button[contains(@class, "bg-[#850d0d]")]')
         playBtn.click()
-        # switch to iframe 1
+        time.sleep(1)
         frame =  self.driver.find_element(By.XPATH, '//iframe[contains(@class, "w-full")]')
         self.driver.switch_to.frame(frame)
         time.sleep(3)
@@ -53,7 +53,7 @@ class JujutsuPlayer(AnimaPlayer):
             is_video_over = self.check_video_duration()
         
     def go_to_next_episode(self, episode_number):
-        self.play(episode_number + 1)
+        self.play(int(episode_number) + 1)
     
     @staticmethod
     def get_jujutsu_url(episode_number: int) -> str:
