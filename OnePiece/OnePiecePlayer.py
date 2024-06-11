@@ -18,7 +18,7 @@ class OnePiecePlayer(AnimaPlayer):
     const iframe = document.getElementsByTagName('iframe').item(0);
     iframe.scrollIntoView(true)
     """
-    EPISODE_END_SKIP=60
+    EPISODE_END_SKIP=40
     youPlayer: YoutubePlayer = None
     
     def __init__(self, driver: Chrome):
@@ -35,7 +35,7 @@ class OnePiecePlayer(AnimaPlayer):
         self.go_to_next_episode(episode_number)
         
     def go_to_next_episode(self, episode_number):
-        self.play(episode_number + 1)
+        self.play(int(episode_number) + 1)
     
     @staticmethod
     def get_url(episode_number: int):

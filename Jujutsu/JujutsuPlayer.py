@@ -11,6 +11,8 @@ from utils.AnimaPlayer import AnimaPlayer
 class JujutsuPlayer(AnimaPlayer):
     KEY="ju"
     EPISODE_END_SKIP=100
+    
+    
     def __init__(self, driver: Chrome):
         super().__init__(driver)
     
@@ -24,12 +26,13 @@ class JujutsuPlayer(AnimaPlayer):
         self.go_to_next_episode(episode_number)
     
     def start(self):
+        time.sleep(2)
         playBtn = self.driver.find_element(By.XPATH, '//button[contains(@class, "bg-[#850d0d]")]')
         playBtn.click()
-        time.sleep(1)
+        time.sleep(2)
         frame =  self.driver.find_element(By.XPATH, '//iframe[contains(@class, "w-full")]')
         self.driver.switch_to.frame(frame)
-        time.sleep(3)
+        time.sleep(6)
         # click start
         startBtn =  self.driver.find_element(By.XPATH, '//div[@data-tooltip="הפעלה"]')
         startBtn.click()
@@ -56,8 +59,8 @@ class JujutsuPlayer(AnimaPlayer):
         self.play(int(episode_number) + 1)
     
     @staticmethod
-    def get_jujutsu_url(episode_number: int) -> str:
-        return f'https://silkysub.com/watch/jujutsu-kaisen/season/1/episode/{str(episode_number)}'
+    def get_jujutsu_url(episode_number: int, season: str = "2") -> str:
+        return f'https://silkysub.com/watch/jujutsu-kaisen/season/{season}/episode/{str(episode_number)}'
     
     def save_last_episode(self, episode: int):
         write_last_episode(self.KEY, episode)
