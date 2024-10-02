@@ -2,10 +2,11 @@ import sys
 from typing import Dict
 from OnePiece.OnePiecePlayer import OnePiecePlayer
 from Jujutsu.JujutsuPlayer import JujutsuPlayer
+from BlackClover.BlackCloverPlayer import BlackCloverPlayer
 from utils.AnimaPlayer import AnimaPlayer
 from utils.utils import get_driver
 
-LIST="\nAnima List\nop = One Piece\nju = Jujutsu Kaisen"
+LIST="\nAnima List\nop = One Piece\nju = Jujutsu Kaisen\nbc = Black Clover"
 HELP=f"""
 In order to play the anima, write your required show and then one of the following commands in this pattern:
 anima [anima show] [command|number] \n
@@ -19,8 +20,9 @@ last = get the latest episode that was played
 """
 
 animaPlayerMap: Dict[str, AnimaPlayer] = {
-    "op": OnePiecePlayer,
-    "ju": JujutsuPlayer
+    OnePiecePlayer.KEY: OnePiecePlayer,
+    JujutsuPlayer.KEY: JujutsuPlayer,
+    BlackCloverPlayer.KEY: BlackCloverPlayer
 }
 
 

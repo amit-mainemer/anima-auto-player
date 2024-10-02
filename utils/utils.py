@@ -6,6 +6,11 @@ from selenium import webdriver
 FILE_NAME = "data.json"
 LAST_KEY = "last"
 
+CONTROL_VIDEO_SCRIPT= f"""
+    const video = document.getElementsByTagName('video').item(0);
+    video.currentTime = {str(60 * 4)};
+    """
+
 def open_browser(driver, url):
     driver.get(url)
     time.sleep(1)
